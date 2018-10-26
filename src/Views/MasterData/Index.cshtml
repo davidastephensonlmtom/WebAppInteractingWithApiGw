@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Authentication
+@model List<WebAppInteractingWithApiGw.Models.Resource>
+@{
+    var authProperties = await ViewContext.HttpContext.AuthenticateAsync();
+    var exp = @authProperties.Properties.ExpiresUtc.GetValueOrDefault();
+    var issue = @authProperties.Properties.IssuedUtc.GetValueOrDefault();
+}
+
+<br />
+<br />
+
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Code</th>
+            <th>Definition</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var resource in Model)
+            {
+                <tr>
+                    <td>@resource.Id</td>
+                    <td>@resource.Code</td>
+                    <td>@resource.Definition</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
